@@ -118,7 +118,7 @@ exports.loginTransporter = async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: transporter.id, email: transporter.email, companyName: transporter.companyName },
+      { id: transporter.id, email: transporter.email, companyName: transporter.companyName, userType: 'transporter' },
       process.env.JWT_SECRET,
       { expiresIn: '1h' } // Token expires in 1 hour
     );
