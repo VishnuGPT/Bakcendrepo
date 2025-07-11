@@ -5,10 +5,7 @@ pipeline {
         nodejs 'Node24'  // Must match the name you set in Jenkins
     }
 
-    environment {
-        // Optional: load env vars manually
-        // PORT = '3000'
-    }
+
 
     stages {
         stage('Clone') {
