@@ -2,44 +2,62 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'Node24.0.10'  // Match the name you configured in Global Tools
+        nodejs 'Node24.0.10'  // Must match the name you set in Jenkins
     }
 
     environment {
-        NODE_ENV = "production"
+        // Optional: load env vars manually
+        // PORT = '3000'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone') {
             steps {
+                echo '✅ Cloning repository...'
                 checkout scm
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install') {
             steps {
+                echo '📦 Installing dependencies...'
                 sh 'npm install'
             }
         }
 
-        stage('Run Tests') {
+        stage('Test') {
             steps {
-                sh 'npm test' // Or your actual test command
+                echo '🧪 Running tests...'
+                sh 'npm test'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build' // Optional: Only if your app builds
+                echo '🚀 Build completed!'
             }
         }
     }
 
     post {
+        success {
+            echo '✅ Build succeeded!'
+        }
+
         failure {
-            mail to: 'your-email@gmail.com',
-                 subject: "❌ Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "View the log: ${env.BUILD_URL}"
+            echo '❌ Build failed. Sending email...'
+            emailext(
+                subject: '🚨 Jenkins Build Failed: ${JOB_NAME} #${BUILD_NUMBER}',
+                body: """
+                    Hi team,
+
+                    The Jenkins job *${JOB_NAME}* failed at build #${BUILD_NUMBER}.
+                    Check the logs here: ${BUILD_URL}
+
+                    💥 Error occurred in branch: ${BRANCH_NAME}
+                """,
+                to: 'you@example.com, teammate@gmail.com'
+            )
         }
     }
 }
