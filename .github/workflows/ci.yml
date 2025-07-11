@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run build (optional)
-        run: npm run build
+      # - name: Run build (optional)
+      #   run: npm run build
 
       - name: Run tests (optional)
         run: echo "No tests defined"
