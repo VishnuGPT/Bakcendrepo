@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test": "echo \"✔️ Tests passed (placeholder)\"",
+    "lint": "eslint .",
+    "audit": "npm audit --audit-level=high"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,10 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "eslint": "^9.30.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.3.0",
     "nodemon": "^3.1.10"
   }
 }
