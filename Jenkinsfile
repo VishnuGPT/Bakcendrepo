@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'Node24.0.10'  // Must match the name you set in Jenkins
+        nodejs 'Node24'  // Must match the name you set in Jenkins
     }
 
     environment {
